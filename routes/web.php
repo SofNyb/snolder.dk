@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+
+use App\Http\Controllers\SlikController; 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,3 +27,15 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::group(['middleware' => 'cors'], function () {
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    // Slik routes
+    Route::get('sliks', [SlikController::class, 'index']);
+    Route::post('slik', [SlikController::class, 'store']);
+    Route::post('slik/delete', [SlikController::class, 'delete']);
+    Route::post('slik/complete', [SlikController::class, 'complete']);
+});

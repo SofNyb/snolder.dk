@@ -14,9 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
+            \Fruitcake\Cors\HandleCors::class,
+            \App\Http\Middleware\CorsMiddleware::class,
+            'cors' => \App\Http\Middleware\CorsMiddleware::class,
         ]);
 
-        //
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
